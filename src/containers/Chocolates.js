@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Chocolates.css'
+import ChocolateCard from '../components/ChocolateCard'
+import ChocolateForm from './ChocolateForm'
+import { getChocolates } from '../actions/Chocolates';
 
-const Chocolates = (props) => {
+class Chocolates extends Component {
 
-  return (
-    <div className="chocolate-container">
-      <h1>Chocolate Type</h1>
-      {props.chocolates.map( chocolate =>
-        <div key={chocolate.id} className="chocolate-card">
-           <img src={chocolate.img_url} alt={chocolate.chocolate_type}/>
-           <h3>{chocolate.chocolate_type}</h3>
+  componentDidMount() {
+    this.props.getChocolates()
+  }
 
-         </div>
-       )
-    }
+  render(){
+    return(
+      <div className="chocolate-container">
+        <h1>Chocolate Selection</h1>
+        {this.props.chocolates.map( chocolate => <ChocolateCard key={chocolate.id} chocolate={chocolate} />)}
+        <ChocolateForm />
+
       </div>
-    )
+   )
+  }
 
 }
+const mapStateToProps = (state) => {
+  return ({
+    chocolates: state.chocolates
+  })
+}
 
-export default Chocolates;
+export default connect(mapStateToProps,{ getChocolates })(Chocolates);
