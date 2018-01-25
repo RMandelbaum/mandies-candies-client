@@ -23,6 +23,8 @@ class Chocolates extends Component {
   }
 
 }
+
+
 const mapStateToProps = (state) => {
   return ({
     chocolates: state.chocolates

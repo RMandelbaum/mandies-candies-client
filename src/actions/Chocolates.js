@@ -1,3 +1,6 @@
+import { resetChocolateForm } from './chocolateForm';
+
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 const setChocolates= chocolates => {
@@ -6,6 +9,13 @@ const setChocolates= chocolates => {
     chocolates
     }
   }
+
+const addChocolate = chocolate => {
+  return {
+    type: 'CREATE_CHOCOLATE_SUCCESS',
+    chocolate
+  }
+}
 
 export const getChocolates = () => {
   return dispatch => {
@@ -23,12 +33,18 @@ export const createChocolate = chocolate => {
       headers: {
         'Content-Type': 'application/json'
       },
-      data: JSON.stringify(chocolate)
+      body: JSON.stringify({ chocolate: chocolate} )
+
     })
-    .then(response => response.json())
-    .then(chocolate => {
-      debugger
-     })
-    .catch(error => console.log(error))
+      .then(response => {
+        debugger
+        response.json()
+      })
+      .then(chocolate => {
+        debugger
+          dispatch(addChocolate(chocolate))
+          dispatch(resetChocolateForm())
+        })
+        .catch(error => console.log(error))
+    }
   }
-}

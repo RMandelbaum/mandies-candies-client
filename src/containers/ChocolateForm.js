@@ -17,48 +17,32 @@ class ChocolateForm extends Component{
     this.props.createChocolate(this.props.chocolateFormData)
   }
   render(){
-const { chocolate_type, price, img_url, piece_count, gift_wrapped } = this.props.chocolateFormData
-    return(
-      <div>
-        Add a Chocolate to the inventory
-        <form onSubmit={this.handleOnSubmit}>
-          <label htmlFor="chocolate_type">Chocolate_Type:</label>
-          <input
-            type="text"
-            onChange={this.handleOnChange}
-            name="chocolate_type"
-            values={chocolate_type}
+    const { chocolate_type, img_url} = this.props.chocolateFormData
+     return(
+       <div>
+         Add a Chocolate to the inventory
+         <form onSubmit={this.handleOnSubmit}>
+          <div>
+            <label htmlFor="chocolate_type">Chocolate_Type:</label>
+            <input
+              type="text"
+              onChange={this.handleOnChange}
+              name="chocolate_type"
+              value={chocolate_type}
+             />
+          </div>
+          <div>
+            <label htmlFor="img_url">img_url:</label>
+            <input
+              type="text"
+              onChange={this.handleOnChange}
+              name="img_url"
+              value={img_url}
             />
-          <label htmlFor="price">Price:</label>
-          <input
-            type="number"
-            onChange={this.handleOnChange}
-            name="price"
-            values={price}
-            />
-          <label htmlFor="img_url">img_url:</label>
-          <input
-            type="text"
-            onChange={this.handleOnChange}
-            name="img_url"
-            values={img_url}
-            />
-          <label htmlFor="piece_count">piece_count:</label>
-          <input
-            type="number"
-            onChange={this.handleOnChange}
-            name="piece_count"
-            values={piece_count}
-            />
-          <label htmlFor="gift_wrapped">gift_wrapped:</label>
-          <input
-            type="checkbox"
-            onChange={this.handleOnChange}
-            name="gift_wrapped"
-            values={gift_wrapped}
-            />
+          </div>
 
           <button type="submit">Add Chocolate</button>
+
         </form>
       </div>
     )
@@ -69,4 +53,6 @@ const mapStateToProps = state => {
     chocolateFormData: state.chocolateFormData
   }
 }
-export default connect(mapStateToProps, { updateChocolateFormData, createChocolate })(ChocolateForm);
+export default connect(mapStateToProps, {
+   updateChocolateFormData,
+   createChocolate })(ChocolateForm);
